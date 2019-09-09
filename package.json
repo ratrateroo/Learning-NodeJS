@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "express": "^4.17.1",
     "jshint": "^2.10.2"
   },
   "devDependencies": {
