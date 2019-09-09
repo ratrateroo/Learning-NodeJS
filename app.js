@@ -1,4 +1,5 @@
-const http = require('http');
+
+//const http = require('http'); //replaced with express features
 //nodejs use require for imports
 
 const express = require('express');
@@ -22,8 +23,12 @@ app.use((req, res, next) => {
 });
 
 
-const server = http.createServer(app);
+//const server = http.createServer(app);
 //OR
 //const server = http.createServer(routes.handler);
 
-server.listen(3000);
+//server.listen(3000);
+
+
+//express created the server
+app.listen(3000);
