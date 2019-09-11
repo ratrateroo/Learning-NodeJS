@@ -15,7 +15,7 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
     //temporary storage for products
-    products.push({ title: req.body.title })
+    products.push({ title: req.body.title });
     res.redirect('/');
 };
 
