@@ -17,14 +17,14 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 //parse first before routes
 app.use(bodyParser.urlencoded({extended: false}));// added a middleware to parse the request body
 //serve static files to the file system as read-only
 app.use(express.static(path.join(__dirname, 'public')));
 //routes
-app.use('/admin', adminData.routes);
+app.use('/admin', adminRoutes);
 
 //default route
 app.use(shopRoutes);
