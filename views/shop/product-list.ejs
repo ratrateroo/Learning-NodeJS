@@ -1,6 +1,5 @@
 <%- include('../includes/head.ejs') %>
-    
-
+<link rel="stylesheet" href="/css/product.css">
 </head>
 
 <body>
@@ -19,8 +18,12 @@
                         alt="<%= product.title %>">
                     </div>
                     <div class="card__content">
-                        <h2 class="product__price">$<%= product.price %></h2>
-                        <p class="product__description"><%= product.description %></p>
+                        <h2 class="product__price">$
+                            <%= product.price %>
+                        </h2>
+                        <p class="product__description">
+                            <%= product.description %>
+                        </p>
                     </div>
                     <div class="card__actions">
                             <form action="/add-to-cart" method="POST">
@@ -28,7 +31,7 @@
                             </form>
                     </div>
                 </article>
-                <%}%>
+                <% } %>
             </div>
             <% } else { %>
                 <h1>No Products Found!</h1>
