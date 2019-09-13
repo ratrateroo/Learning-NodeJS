@@ -7,7 +7,7 @@ const p = path.join(
     'products.json'
     );
 
-const getProductFromFile = callback => {
+const getProductsFromFile = callback => {
     
     fs.readFile(p, (error, fileContent) => {
         if (error) {
@@ -40,12 +40,12 @@ module.exports = class Product {
     }
 
     static fetchAll(callback) {
-        getProductFromFile(callback);
+        getProductsFromFile(callback);
         
     }
 
     static findById(id, callback) {
-        getProductFromFile(products => {
+        getProductsFromFile(products => {
             const product = products.find(p => p.id === id);
             callback(product);
         });
