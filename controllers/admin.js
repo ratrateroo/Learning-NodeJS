@@ -2,13 +2,13 @@ const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
     //res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
-    res.render('admin/add-product', 
+    res.render('admin/edit-product', 
         {
             pageTitle: 'Add Product', 
-            path: '/admin/add-product',
-            formsCSS: true,
-            productCSS: true,
-            activeAddProduct: true
+            path: '/admin/add-product', //still used for nav highlight
+            // formsCSS: true,
+            // productCSS: true,
+            // activeAddProduct: true
         });    
 };
 
