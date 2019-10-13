@@ -6,6 +6,7 @@ exports.getAddProduct = (req, res, next) => {
         {
             pageTitle: 'Add Product', 
             path: '/admin/add-product', //still used for nav highlight
+            editing: false
             // formsCSS: true,
             // productCSS: true,
             // activeAddProduct: true
@@ -27,12 +28,20 @@ exports.getEditProduct = (req, res, next) => {
     if (!editMode) {
         return res.redirect('/');
     }
-    res.render('admin/edit-product', 
+    const prodId = req.params.productId; //getting the id form the url
+    Product.findById(prodId, product => {
+        if (!product) {
+            return res.redirect('/');
+        }
+        res.render('admin/edit-product', 
         {
             pageTitle: 'Edit Product', 
             path: '/admin/edit-product',
-            editing: editMode
-        });    
+            editing: editMode,
+            product: product
+        }); 
+    });
+       
 };
 
 exports.getProducts = (req, res, next) => {
