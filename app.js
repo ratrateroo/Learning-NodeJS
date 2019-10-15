@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error');
+const db = require('./util/database');
 
 // using EJS not handlebars const expressHbs = require('express-handlebars');
 
@@ -21,6 +22,9 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+
+db.execute('SELECT * Products');
+
 //parse first before routes
 app.use(bodyParser.urlencoded({extended: false}));// added a middleware to parse the request body
 //serve static files to the file system as read-only
