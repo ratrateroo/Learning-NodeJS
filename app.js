@@ -23,7 +23,7 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
-db.execute('SELECT * Products');
+db.execute('SELECT * FROM products').then().catch();
 
 //parse first before routes
 app.use(bodyParser.urlencoded({extended: false}));// added a middleware to parse the request body
