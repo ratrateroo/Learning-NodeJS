@@ -66,8 +66,8 @@ Cart.belongsToMany(Product, { through: CartItem });
 Product.belongsToMany(Cart, { through: CartItem });
 
 sequelize
-.sync({force: true}) // for overwriting table
-//.sync()
+//.sync({force: true}) // for overwriting table
+.sync()
 .then(result =>{
     return User.findByPk(1);
     //console.log(result);
@@ -80,11 +80,13 @@ sequelize
 })
 .then(user => {
     //console.log(user);
+    return user.createCart();
+})
+.then(cart => {
     app.listen(3000);
 })
-.catch(err => 
-    {
+.catch(err => {
         console.log(err);
-    });
+});
 
 //express created the server
