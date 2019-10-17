@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
-// const shopRoutes = require('./routes/shop');
+const shopRoutes = require('./routes/shop');
 
 
 
@@ -45,8 +45,8 @@ app.use((req, res, next) => {
 //routes
 app.use('/admin', adminRoutes);
 
-// //default route
-// app.use(shopRoutes);
+//default route
+app.use(shopRoutes);
 
 app.use(errorController.get404);
 
