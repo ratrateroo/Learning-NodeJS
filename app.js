@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error');
-const mongoConnect = require('./util/database');
+const mongoConnect = require('./util/database').mongoConnect;
 
 
 // using EJS not handlebars const expressHbs = require('express-handlebars');
@@ -40,6 +40,7 @@ app.use((req, res, next) => {
     //     }
     // )
     // .catch(err => console.log(err));
+    next();
 });
 //routes
 app.use('/admin', adminRoutes);
