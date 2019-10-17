@@ -1,6 +1,17 @@
-const Sequelize = require('sequelize');
+const getDB = require('../util/database').getDB();
 
-const sequelize = require('../util/database');
+class Product {
+    constructor(title, price, description, imageUrl) {
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.imageUrl = imageUrl;
+    }
+
+    save() {
+
+    }
+}
 
 const Product = sequelize.define('product',
 {
@@ -23,15 +34,7 @@ const Product = sequelize.define('product',
         type: Sequelize.STRING,
         allowNull: false
     }
-},
-{
-    // disable the modification of tablenames; By default, sequelize will automatically
-    // transform all passed model names (first parameter of define) into plural.
-    // if you don't want that, set the following
-    freezeTableName: true,
-  
-    // define the table's name
-    tableName: 'product'
-  });
+}
+);
 
 module.exports = Product;
