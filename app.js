@@ -23,6 +23,7 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const authRoutes = require('./routes/auth');
 
 
 
@@ -46,6 +47,8 @@ app.use('/admin', adminRoutes);
 
 //default route
 app.use(shopRoutes);
+
+app.use(authRoutes);
 
 app.use(errorController.get404);
 
