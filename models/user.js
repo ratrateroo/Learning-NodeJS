@@ -84,7 +84,7 @@ class User {
         .then(products => {
 
             const order = {
-                items: this.cart.items,
+                items: products,
                 user: {
                     _id: new ObjectId(this._id),
                     name: this.name
