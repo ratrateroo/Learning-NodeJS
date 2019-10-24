@@ -3,21 +3,13 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session =  require('express-session');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-// using EJS not handlebars const expressHbs = require('express-handlebars');
-
 const app = express();
 
-/*  app.engine('hbs', expressHbs({
-    layoutsDir: 'views/layouts/',
-    defaultLayout: 'main-layouts',
-    extname: 'hbs'
-})); */
-
-//app.set('view engine', 'pug');
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
@@ -31,6 +23,9 @@ const authRoutes = require('./routes/auth');
 app.use(bodyParser.urlencoded({extended: false}));// added a middleware to parse the request body
 //serve static files to the file system as read-only
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    session({ secret: 'my secret', resave: false, saveUninitialized: false })
+);
 
 app.use((req, res, next) => {
     User.findById('5db0727b9fc4e910b893696e')
