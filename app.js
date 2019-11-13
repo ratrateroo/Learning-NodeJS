@@ -11,11 +11,18 @@ const User = require('./models/user');
 
 const MONGODB_URI = 'mongodb+srv://mark:ultrapassword@cluster0-oehn6.mongodb.net/shop?retryWrites=true&w=majority';
 
+//const MONGODB_URI = 'mongodb://localhost/offlinedatabase';
+ 
+
+
 const app = express();
 const store = new MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions'
 });
+
+
+
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -40,15 +47,17 @@ app.use(
 );
 
 app.use((req, res, next) => {
-    User.findById('5db0727b9fc4e910b893696e')
-        .then(
-            user => {
-                req.user = user;
-                next();
-            }
-        )
-        .catch(err => console.log(err));
-});
+    if (!req.session.user) {
+      return next();
+    }
+    User.findById(req.session.user._id)
+      .then(user => {
+        req.user = user;
+        next();
+      })
+      .catch(err => console.log(err));
+  });
+  
 //routes
 app.use('/admin', adminRoutes);
 
