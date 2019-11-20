@@ -7,6 +7,7 @@ const session =  require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+const multer = require('multer');
 
 
 const errorController = require('./controllers/error');
@@ -39,6 +40,7 @@ const authRoutes = require('./routes/auth');
 
 //parse first before routes
 app.use(bodyParser.urlencoded({extended: false}));// added a middleware to parse the request body
+app.use(multer({dest: 'images'}).single('image'));
 //serve static files to the file system as read-only
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
