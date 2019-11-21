@@ -25,26 +25,39 @@ const store = new MongoDBStore({
 const csrfProtection = csrf();
 
 const fileStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'images');
-    },
-    filename: (req, file, cb) => {
-        cb(null, new Date().toISOString() + '-' + file.originalname);
-    }
+  destination: (req, file, cb) => {
+    cb(null, 'images');
+  },
+  filename: (req, file, cb) => {
+    let dateobj = new Date();
+    //cb(null, dateobj.toISOString() + '-' + file.originalname);
+    //cb(null, new Date().toISOString() + '-' + file.originalname);
+    //cb(null, file.filename + '-' + file.originalname);
+    cb(null, Date.now().toString() + '-' + file.originalname);
+  }
 });
-
+  
 const fileFilter = (req, file, cb) => {
-    if (
-        file.mimetype === 'image/png' ||
-        file.mimetype === 'image/jpg' ||
-        file.mimetype === 'image/jpeg'
+  if (
+      file.mimetype === 'image/png' ||
+      file.mimetype === 'image/jpg' ||
+      file.mimetype === 'image/jpeg'
     ) {
-        cb(null, true);
+      cb(null, true);
     } else {
-        cb(null, false);
+      cb(null, false);
+      console.log('error here');
     }
 };
 
+// const fileFilter = function (req, file, cb) {
+//   // accept image only
+//   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+//       return cb(new Error('Only image files are allowed!'), false);
+//   }
+//   cb(null, true);
+// };
+  
 
 
 app.set('view engine', 'ejs');
@@ -58,9 +71,8 @@ const authRoutes = require('./routes/auth');
 
 //parse first before routes
 app.use(bodyParser.urlencoded({extended: false}));// added a middleware to parse the request body
-app.use(
-    multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
-    );
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'));
+
 //serve static files to the file system as read-only
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
@@ -117,11 +129,12 @@ app.use(errorController.get404);
 app.use((error, req, res, next) => {
     // res.status(error.httpStatusCode).render(...);
     // res.redirect('/500');
-    res.status(500).render('500', {
-        pageTitle: 'Error!',
-        path: '/500',
-        isAuthenticated: req.session.isLoggedIn
-      });
+  res.status(500).render('500', {
+    pageTitle: 'Error!',
+    path: '/500',
+    isAuthenticated: req.session.isLoggedIn
+  });
+    
 });
 
 mongoose
