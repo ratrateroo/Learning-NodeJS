@@ -8,11 +8,15 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const helmet = require('helmet');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URI = 'mongodb+srv://mark:ultrapassword@cluster0-oehn6.mongodb.net/shop?retryWrites=true&w=majority';
+console.log(process.env.NODE_ENV);
+
+const MONGODB_URI = 
+`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-oehn6.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 
 //const MONGODB_URI = 'mongodb://localhost/offlinedatabase';
  
@@ -67,7 +71,7 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
-
+app.use(helmet());
 
 //parse first before routes
 app.use(bodyParser.urlencoded({extended: false}));// added a middleware to parse the request body
@@ -144,7 +148,7 @@ mongoose
     )
 .then(result => {
     
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
 })
 .catch(err => {
     console.log(err);

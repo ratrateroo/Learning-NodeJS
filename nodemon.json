@@ -1,0 +1,9 @@
+{
+    "env": {
+        "MONGO_USER": "mark",
+        "MONGO_PASSWORD": "ultrapassword",
+        "MONGO_DEFAULT_DATABASE": "shop"
+
+    }
+}
+
