@@ -129,7 +129,9 @@ app.use((req, res, next) => {
       });
   });
   
-
+  app.get('/', function(req, res){
+    res.redirect('/products');
+  });
 
 //routes
 app.use('/admin', adminRoutes);
@@ -138,6 +140,8 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 app.use(authRoutes);
+
+
 
 app.get('/500', errorController.get500);
 
