@@ -14,14 +14,16 @@ const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
 
+require('dotenv').config();
+console.log(process.env);
+
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-console.log(process.env.NODE_ENV);
 
 const MONGODB_URI = 
 `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-oehn6.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
-
+console.log(MONGODB_URI);
 //const MONGODB_URI = 'mongodb://localhost/offlinedatabase';
  
 const app = express();
@@ -32,8 +34,8 @@ const store = new MongoDBStore({
 
 const csrfProtection = csrf();
 
-const privateKey = fs.readFileSync('server.key');
-const certificate = fs.readFileSync('server.cert');
+// const privateKey = fs.readFileSync('server.key');
+// const certificate = fs.readFileSync('server.cert');
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -159,9 +161,9 @@ mongoose
     )
 .then(result => {
     
-    https
-    .createServer({ key: privateKey, cert: certificate }, app)
-    .listen(process.env.PORT || 3000);
+    // https
+    // .createServer({ key: privateKey, cert: certificate }, app)
+    app.listen(process.env.PORT || 3000);
 })
 .catch(err => {
     console.log(err);

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "engines": {
+    "node": "10.16.0"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -10,6 +13,7 @@
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^2.2.0",
     "csurf": "^1.10.0",
+    "dotenv": "^8.2.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
@@ -30,10 +34,11 @@
     "stripe": "^7.13.1"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "nodemon": "^1.19.2"
   },
   "scripts": {
-    "start": "MONGO_USER=mark MONGO_PASSWORD=ultrapassword MONGO_DEFAULT_DATABASE=shop node app.js",
+    "start": "cross-env NODE_ENV=production MONGO_USER=mark MONGO_PASSWORD=ultrapassword MONGO_DEFAULT_DATABASE=shop node app.js",
     "start-server": "node app.js",
     "start:dev": "nodemon app.js"
   },
